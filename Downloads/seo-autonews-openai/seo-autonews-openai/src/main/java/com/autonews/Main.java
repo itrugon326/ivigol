@@ -36,7 +36,9 @@ public class Main {
         RssReader       rssReader  = new RssReader();
         AiRewriter      aiRewriter = new AiRewriter(GROQ_API_KEY);
         DuplicateFilter filter     = new DuplicateFilter(PROCESSED_FILE);
-        SiteGenerator   generator  = new SiteGenerator(OUTPUT_DIR, SITE_TITLE, SITE_URL, ADSENSE_ID,PEXELS_API_KEY);
+        SiteGenerator   generator  = new SiteGenerator(OUTPUT_DIR, SITE_TITLE, SITE_URL, ADSENSE_ID,PEXELS_API_KEY
+
+        );
 
         generator.loadExistingArticles();
 

@@ -31,8 +31,9 @@ public class AiRewriter {
             TITULAR ORIGINAL: %s
             RESUMEN: %s
 
-            IMPORTANTE: Devuelve ÚNICAMENTE este JSON en UNA SOLA LÍNEA, sin saltos de línea dentro de los valores:
-            {"title":"título aquí","slug":"slug-aqui","meta":"descripción máx 155 chars","html":"<p>contenido</p><h2>subtítulo</h2><p>más contenido</p>"}
+            IMPORTANTE: El artículo debe tener mínimo 600 palabras con al menos 4 subtítulos h2.
+            Devuelve ÚNICAMENTE este JSON en UNA SOLA LÍNEA sin saltos de línea dentro de los valores:
+            {"title":"título SEO aquí","slug":"slug-aqui","meta":"descripción máx 155 chars","html":"<p>intro larga</p><h2>subtítulo1</h2><p>párrafo largo</p><h2>subtítulo2</h2><p>párrafo largo</p><h2>subtítulo3</h2><p>párrafo largo</p><h2>subtítulo4</h2><p>cierre</p>"}
             """.formatted(item.title(), item.description());
 
         try {
@@ -43,7 +44,7 @@ public class AiRewriter {
 
             ObjectNode system = mapper.createObjectNode();
             system.put("role", "system");
-            system.put("content", "Eres un redactor SEO. Respondes SOLO con una línea de JSON válido sin saltos de línea dentro de los valores de las propiedades.");
+            system.put("content", "Eres un redactor SEO experto en fútbol. Respondes SOLO con una línea de JSON válido sin saltos de línea dentro de los valores de las propiedades.");
             messages.add(system);
 
             ObjectNode user = mapper.createObjectNode();
@@ -52,7 +53,7 @@ public class AiRewriter {
             messages.add(user);
 
             body.set("messages", messages);
-            body.put("max_tokens", 1500);
+            body.put("max_tokens", 2500);
             body.put("temperature", 0.7);
 
             Request request = new Request.Builder()
@@ -83,7 +84,6 @@ public class AiRewriter {
 
                 String text = choices.get(0).path("message").path("content").asText();
 
-                // Extraer bloque JSON
                 int start = text.indexOf('{');
                 int end   = text.lastIndexOf('}');
                 if (start == -1 || end == -1) {
@@ -91,8 +91,6 @@ public class AiRewriter {
                     return null;
                 }
                 text = text.substring(start, end + 1);
-
-                // Limpiar saltos de línea dentro del JSON
                 text = text.replaceAll("(?<!\\\\)[\\n\\r]+", " ").trim();
 
                 JsonNode parsed = mapper.readTree(text);

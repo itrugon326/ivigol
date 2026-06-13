@@ -49,9 +49,12 @@ public class SiteGenerator {
     }
 
     private String fetchPhotoUrl(String query) {
+        String[] words = query.split(" ");
+        String searchQuery = String.join("+",
+                Arrays.copyOfRange(words, 0, Math.min(3, words.length)));
         try {
             String url = "https://api.pexels.com/v1/search?query="
-                    + query.replace(" ", "+") + "&per_page=1&orientation=landscape";
+                    + searchQuery + "&per_page=1&orientation=landscape";
             Request request = new Request.Builder()
                     .url(url)
                     .addHeader("Authorization", pexelsApiKey)
@@ -130,7 +133,7 @@ public class SiteGenerator {
                 .hero{width:100%%;height:380px;object-fit:cover;border-radius:8px;margin-bottom:24px}
                 .ad{text-align:center;margin:24px 0;padding:12px;background:#eee;border-radius:4px}
                 .card{background:#fff;border-radius:6px;overflow:hidden;margin-bottom:16px;
-                      box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;gap:0}
+                      box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex}
                 .card img{width:180px;height:120px;object-fit:cover;flex-shrink:0}
                 .card-body{padding:16px}
                 .card h2{font-size:1.1rem;margin:0 0 8px}
@@ -165,7 +168,7 @@ public class SiteGenerator {
                   <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
                 </div>
               </div>
-              <footer>&copy; 2025 %s</footer>
+              <footer>&copy; 2026 %s</footer>
             </body>
             </html>
             """.formatted(siteTitle, a.title(), a.date(), photoUrl, a.title(),
@@ -201,7 +204,7 @@ public class SiteGenerator {
                 </div>
                 %s
               </div>
-              <footer>&copy; 2025 %s</footer>
+              <footer>&copy; 2026 %s</footer>
             </body>
             </html>
             """.formatted(siteTitle, cards.toString(), siteTitle);
