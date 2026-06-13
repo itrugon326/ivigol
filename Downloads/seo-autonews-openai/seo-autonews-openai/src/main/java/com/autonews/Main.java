@@ -9,6 +9,8 @@ public class Main {
     static final String GROQ_API_KEY = System.getenv("GROQ_API_KEY") != null
             ? System.getenv("GROQ_API_KEY")
             : "PON-TU-CLAVE-AQUI";
+    static final String PEXELS_API_KEY = System.getenv("PEXELS_API_KEY") != null
+            ? System.getenv("PEXELS_API_KEY") : "";
 
     static final String SITE_TITLE     = "IVIGOL";
     static final String SITE_URL       = "https://ivigol.com";
@@ -34,7 +36,7 @@ public class Main {
         RssReader       rssReader  = new RssReader();
         AiRewriter      aiRewriter = new AiRewriter(GROQ_API_KEY);
         DuplicateFilter filter     = new DuplicateFilter(PROCESSED_FILE);
-        SiteGenerator   generator  = new SiteGenerator(OUTPUT_DIR, SITE_TITLE, SITE_URL, ADSENSE_ID);
+        SiteGenerator   generator  = new SiteGenerator(OUTPUT_DIR, SITE_TITLE, SITE_URL, ADSENSE_ID,PEXELS_API_KEY);
 
         generator.loadExistingArticles();
 
