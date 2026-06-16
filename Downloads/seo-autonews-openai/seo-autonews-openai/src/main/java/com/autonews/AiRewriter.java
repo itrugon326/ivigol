@@ -31,9 +31,15 @@ public class AiRewriter {
             TITULAR ORIGINAL: %s
             RESUMEN: %s
 
-            IMPORTANTE: El artículo debe tener mínimo 600 palabras con al menos 4 subtítulos h2.
-            Devuelve ÚNICAMENTE este JSON en UNA SOLA LÍNEA sin saltos de línea dentro de los valores:
-            {"title":"título SEO aquí","slug":"slug-aqui","meta":"descripción máx 155 chars","html":"<p>intro larga</p><h2>subtítulo1</h2><p>párrafo largo</p><h2>subtítulo2</h2><p>párrafo largo</p><h2>subtítulo3</h2><p>párrafo largo</p><h2>subtítulo4</h2><p>cierre</p>"}
+                IMPORTANTE: Escribe un artículo bien estructurado con esta estructura EXACTA:
+                - Párrafo de introducción de 3-4 frases
+                - 4 secciones, cada una con un <h2> y 3-4 párrafos <p> de contenido real y detallado
+                - Párrafo de conclusión
+                - Mínimo 800 palabras en total
+                - Cada <p> debe tener mínimo 3 frases completas
+                
+                Devuelve ÚNICAMENTE este JSON en UNA SOLA LÍNEA sin saltos de línea dentro de los valores:
+                {"title":"título SEO aquí","slug":"slug-aqui","meta":"descripción máx 155 chars","html":"<p>introducción detallada de 3-4 frases</p><h2>Primera sección</h2><p>párrafo 1 con 3 frases</p><p>párrafo 2 con 3 frases</p><p>párrafo 3 con 3 frases</p><h2>Segunda sección</h2><p>párrafo 1</p><p>párrafo 2</p><p>párrafo 3</p><h2>Tercera sección</h2><p>párrafo 1</p><p>párrafo 2</p><p>párrafo 3</p><h2>Cuarta sección</h2><p>párrafo 1</p><p>párrafo 2</p><p>párrafo 3</p><p>conclusión</p>"}
             """.formatted(item.title(), item.description());
 
         try {
